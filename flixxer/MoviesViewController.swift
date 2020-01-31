@@ -34,11 +34,10 @@ class MoviesViewController: UIViewController, UITableViewDataSource, UITableView
            } else if let data = data {
               let dataDictionary = try! JSONSerialization.jsonObject(with: data, options: []) as! [String: Any]
             
-            self.movies = dataDictionary["results"] as! [[String:Any]]
+              self.movies = dataDictionary["results"] as! [[String:Any]]
             
-            self.tableView.reloadData()
+              self.tableView.reloadData()
             
-              print(dataDictionary)
               // TODO: Get the array of movies
               // TODO: Store the movies in a property to use elsewhere
               // TODO: Reload your table view data
@@ -72,14 +71,35 @@ class MoviesViewController: UIViewController, UITableViewDataSource, UITableView
     }
        
 
-    /*
     // MARK: - Navigation
 
     // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         // Get the new view controller using segue.destination.
         // Pass the selected object to the new view controller.
+        
+        
+        
+        //sender is the cell that was tapped on
+        //segue is the generic view controller that was clicked on
+        
+        
+        
+        //Find the selected movie
+        
+        //Which cell was tapped on
+        let cell = sender as! UITableViewCell
+        //What was index for that cell
+        let indexPath = tableView.indexPath(for:cell)!
+        let movie = movies[indexPath.row]
+         
+        //Pass the selected movie to the details view controller
+        let detailsViewController = segue.destination as! MovieDetailsViewController  
+        detailsViewController.movie = movie
+        
+        tableView.deselectRow(at: indexPath, animated: true)
+         
     }
-    */
+
 
 }
